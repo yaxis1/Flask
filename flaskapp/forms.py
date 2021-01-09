@@ -22,7 +22,6 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', [DataRequired(), Length(min = 2, max = 17)])
     email = StringField('Email',[DataRequired(), Email() ])
     password = PasswordField('Password',[DataRequired(), Length(min = 6)])
     remember = BooleanField('Remember Me')
