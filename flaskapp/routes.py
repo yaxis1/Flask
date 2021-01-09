@@ -6,7 +6,7 @@ from flask import render_template, url_for, flash, redirect, request
 from flaskapp import app, db, bcrypt
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskapp.db_models import User,Post
-from flask_login import login_user, current_user, logout_user, login_required
+from flask_login import login_user, current_user, logout_user, login_required, PostForm
 
 
 posts = [
@@ -82,10 +82,6 @@ def save_picture(form_picture):
 
     return picture_fn
 
-
-
-
-
 @app.route("/account", methods = ['GET', 'POST'])
 @login_required
 def account():
@@ -107,5 +103,14 @@ def account():
 
 
     return render_template('account.html', title = "Account", image_file=image_file, form=form)
+
+@app.route("/post/new", methods = ['GET', 'POST'])
+@login_required
+def post():
+    form = PostForm()
+    if form.validate_on_submit():
+        flash('Post created!', category='success')
+        return redirect(url_for('home'))
+    return render_template('post_html', title = 'New Post', form = form)
 
 
