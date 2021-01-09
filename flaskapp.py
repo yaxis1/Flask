@@ -1,8 +1,30 @@
 from flask import Flask, render_template, url_for, flash, redirect
+from flask_sqlalchemy import SQLALchemy
 from forms import RegistrationForm, LoginForm
-app = Flask(__name__)
 
+app = Flask(__name__)
 app.config['SECRET_KEY'] = '839c91f955762c458c526e67f90a0a68'
+app.config['SQLALCHEMY_DB_URL'] = 'sqlite:///site.db'
+db=SQLALchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(17), unique = True, nullable = False)
+    email = db.Column(db.String(100), unique = True, nullable = False)
+    image_file = db.Column(db.String(20), nullable = False, default = 'default.jpg')
+    password = db.Column(db.String(60), nullable = False)
+
+    def __repr__(self):
+        return f"User('{self.username}, {self.email},{self.image_file}')"
+
+class Post(db.Model):
+    pass
+
+
+
+
+
+
 
 posts = [
     {
