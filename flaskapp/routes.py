@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect
 #Avoding circular import error
-from flaskapp import app
+from flaskapp import app, db, bcrypt
 from flaskapp.forms import RegistrationForm, LoginForm
 from flaskapp.db_models import User,Post
 
@@ -31,8 +31,13 @@ def about():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('home'))
+       # db.create_all()
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data,email = form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Your account has been created, you can now login!', 'success')
+        return redirect(url_for('signin'))
     return render_template('register.html', title = 'Register', form = form)
 
 @app.route("/signin", methods=['GET', 'POST'])
