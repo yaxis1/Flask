@@ -14,4 +14,11 @@ login_manager.login_view = 'signin'
 login_manager.login_message_category = 'info'
 
 #Circular import
-from flaskapp import routes
+from flaskapp.users.routes import users
+app.register_blueprint(users)
+
+from flaskapp.posts.routes import posts
+app.register_blueprint(posts)
+
+from flaskapp.main.routes import main
+app.register_blueprint(main)
