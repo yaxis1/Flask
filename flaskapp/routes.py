@@ -49,7 +49,7 @@ def signin():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('login unsuccessful :) ','danger')
+            flash('login unsuccessful :)','danger')
     return render_template('login.html', title = 'Login', form = form)
 
 
@@ -59,7 +59,7 @@ def logout():
     return redirect(url_for('home'))
 
 def save_picture(form_picture):
-    random_hex = secrets.toekn_hex(8)
+    random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext 
     pic_path = os.path.join(app.root_path,'static/profilepics', picture_fn)
