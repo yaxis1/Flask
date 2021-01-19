@@ -9,7 +9,7 @@ from flaskapp.users.utils import save_picture, send_reset_email
 @users.route("/signup", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
        # db.create_all()
@@ -20,13 +20,13 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash(f'Your account has been created, you can now login!', 'success')
-        return redirect(url_for('signin'))
+        return redirect(url_for('users.signin'))
     return render_template('register.html', title = 'Register', form = form)
 
 @users.route("/signin", methods=['GET', 'POST'])
 def signin():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -34,7 +34,7 @@ def signin():
             login_user(user,remember=form.remember.data)
             #USER LOGGED IN 
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('login unsuccessful :)','danger')
     return render_template('login.html', title = 'Login', form = form)
@@ -43,7 +43,7 @@ def signin():
 @users.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('main.home'))
 
 @users.route("/account", methods = ['GET', 'POST'])
 @login_required
@@ -57,7 +57,7 @@ def account():
         current_user.email = form.email.data
         db.session.commit() 
         flash('Account updated!', 'success')
-        return redirect(url_for('account'))
+        return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username 
         form.email.data = current_user.email
