@@ -3,6 +3,7 @@ from flask import Flask, request
 from flaskapp.db_models import User
 import unittest, requests
 from flaskapp import db, create_app
+from flask_bcrypt import Bcrypt
 
 #Initializing test app
 app = create_app()
@@ -36,25 +37,29 @@ class FlaskTest(unittest.TestCase):
     #register_FAILED
     def test_3_register_fail(self):
         r = requests.post(FlaskTest.URL+'signup', data = FlaskTest.DATA)
-        self.assertTrue(b'That username is already taken!' in r.content) 
+        self.assertTrue(b'That username is already taken!' in r.content)  
 
-    
-"""     #register_SUCCESS
+        #self.assertTrue(b'Your account has been created, you can now login!' in r.content)      
+
+#signin_FAIL
+    def test_5_login(self):
+        r = requests.post(FlaskTest.URL+'signin', data = FlaskTest.DATA)
+        with requests.Session() as s:
+            r = s.post(FlaskTest.URL+'signin', data = dict(email = 'king3kong@gmail.com', password = '1234567595' ,allow_redirects=True))
+            #print(r.text)
+            self.assertTrue(b'login unsuccessful' in r.content)  
+
+
+"""    #register_SUCCESS
     def test_4_register(self):
-        r = requests.post(FlaskTest.URL+'signup', data = dict(username='king2kong', email = 'king2kong@gmail.com', password = 'king2kong@gmail.com', confirm_password = 'king2kong@gmail.com' ))
-        if 'king2kong' in db():
-            print('yes')
-        else:
-            print('no') """
+        bcrypt = Bcrypt()
+        with requests.Session() as s:
+            hashed_password = bcrypt.generate_password_hash('king3kong@gmail.com').decode('utf-8')
 
-
-""" #signin_FAIL
-    def test_login(self):
-        tester = current_app.test_client(self)
-        tester.post('/signin', data = dict(email = 'kingkocng@gmail.com', password = 'kingkocng@gmail.com'),follow_redirects =True)
-        response = tester.get( '/signin', follow_redirects = True)
-        self.assertTrue(b'This website was built admist the Pandemic :)' in response.data)   
-
+            r = s.post(FlaskTest.URL+'signup', data = dict(username='king3kong', email = 'king3kong@gmail.com', password = '1234567595' ))
+            print(r.text)
+            self.assertEqual(r.status_code, 201)  """
+""" 
     #signin_SUCCESS
     def test_login(self):
         tester = current_app.test_client(self)
@@ -62,7 +67,7 @@ class FlaskTest(unittest.TestCase):
        # self.assertIn(b'kingkongpost', response.data)
     
  
-        #self.assertIn(b'Log In', response.data) """
+        #self.assertIn(b'Log In', response.data)  """
 
 if __name__ == '__main__':
     unittest.main()
