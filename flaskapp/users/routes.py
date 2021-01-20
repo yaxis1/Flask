@@ -2,9 +2,11 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskapp import db, bcrypt
 from flaskapp.db_models import User, Post
-from flaskapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
-                                   RequestResetForm, ResetPasswordForm)
-from flaskapp.users.utils import save_picture, send_reset_email
+from flaskapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm)
+from flaskapp.users.utils import save_picture
+
+users = Blueprint('users', __name__)
+
 
 @users.route("/signup", methods=['GET', 'POST'])
 def register():

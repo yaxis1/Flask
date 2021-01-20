@@ -5,6 +5,7 @@ from flaskapp import db
 from flaskapp.db_models import Post
 from flaskapp.posts.forms import PostForm
 
+posts = Blueprint('posts', __name__)
 
 @posts.route("/post/new", methods = ['GET', 'POST'])
 @login_required
