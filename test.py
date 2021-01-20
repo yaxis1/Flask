@@ -1,23 +1,23 @@
-from flask import Flask, current_app
 from flaskapp.db_models import User
-import unittest
-from flask import request
-import requests
-from flaskapp import db
+from flask import Flask, request
+from flaskapp.db_models import User
+import unittest, requests
+from flaskapp import db, create_app
 
-app = Flask(__name__)
-with app.app_context(): db.create_all()
+#Initializing test app
+app = create_app()
 
-
+#with app.app_context():
+db.app = create_app()
 
 def db():
     users_in_db=[]
-
     users = User.query.all()
     for x in users:
         users_in_db.append(x.username)
     return users_in_db
 
+print(db())
 
 class FlaskTest(unittest.TestCase):
     URL = 'http://127.0.0.1:5000/'
