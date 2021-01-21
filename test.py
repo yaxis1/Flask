@@ -17,7 +17,6 @@ def db():
     for x in users:
         users_in_db.append(x.username)
     return users_in_db
-
 print(db())
 
 class FlaskTest(unittest.TestCase):
@@ -41,13 +40,14 @@ class FlaskTest(unittest.TestCase):
 
         #self.assertTrue(b'Your account has been created, you can now login!' in r.content)      
 
-#signin_FAIL
+""" #signin_FAIL
     def test_5_login(self):
-        r = requests.post(FlaskTest.URL+'signin', data = FlaskTest.DATA)
         with requests.Session() as s:
+
             r = s.post(FlaskTest.URL+'signin', data = dict(email = 'king3kong@gmail.com', password = '1234567595' ,allow_redirects=True))
             #print(r.text)
-            self.assertTrue(b'login unsuccessful' in r.content)  
+            self.assertEqual(r.status_code, 201)
+            #self.assertTrue(b'login unsuccessful' in r.content)   """
 
 
 """    #register_SUCCESS
