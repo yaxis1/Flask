@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage ('Compile Stage'){
             steps{
-                bat 'python run.py'
+                cmd 'python run.py'
             }
         }
         stage ("Test Stage"){
             steps{
-                bat 'python test.py'
+                cmd 'python test.py'
             }
         }
     }
