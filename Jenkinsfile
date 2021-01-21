@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage ('Compile Stage'){
             steps{
+                bat 'pip install -r requirements.txt'
                 bat 'run.py'
+                
             }
         }
         stage ("Test Stage"){
