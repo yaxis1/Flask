@@ -4,13 +4,13 @@ pipeline {
         stage ('Compile Stage'){
             steps{
 
-                sh'sudo pip install --upgrade pip'
-                sh 'run.py'
+                bat 'sudo pip install --upgrade pip'
+                bat 'run.py'
             }
         }
         stage ("Test Stage"){
             steps{
-                sh'python test.py'
+                bat 'python test.py'
             }
         }
     }
