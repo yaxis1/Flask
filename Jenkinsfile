@@ -4,7 +4,7 @@ pipeline {
         stage ('Compile Stage'){
             steps{
 
-                sh 'sudo pip install --upgrade pip'
+                sh 'pip install --upgrade pip'
                 sh 'run.py'
             }
         }
