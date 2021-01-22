@@ -1,20 +1,33 @@
+def gv 
 pipeline {
     agent any
     stages {
-        stage ('Compile Stage'){
+        stage ('Load script'){
             steps{
-                echo'Compiling app'
-
-
+                echo "Loading groovy script"
+                script{
+                    gv = load "script.groovy"
+                }
+            }
+        }
+        stage ("Build Stage"){
+            steps{
+                echo'Building app'
+                script{
+                    gv.install_requirements()
+                }
             }
         }
         stage ("Test Stage"){
             steps{
-                echo'Testing app'
-
+                echo 'Testing app'
+                script{
+                    gv.install_requirements()
+                }
             }
         }
     }
+
     post{
         always{
             echo 'End of Pipeline'
