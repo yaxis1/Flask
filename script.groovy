@@ -1,6 +1,6 @@
 def install_requirements(){
     echo 'Installing requirements for flaskapp'
-    python
+    bat'python'
 }
 
 return this
