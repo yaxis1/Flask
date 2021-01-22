@@ -1,6 +1,8 @@
 def install_requirements(){
+    #!/bin/bash
     echo 'Installing requirements for flaskapp'
-    bat'python'
+    timedatectl 
+
 }
 
 return this
