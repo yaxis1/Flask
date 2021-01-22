@@ -2,7 +2,7 @@ def gv
 pipeline {
     agent any
     stages {
-        stage ('Load script'){
+        stage ('Load env script'){
             steps{
                 echo "Loading groovy script"
                 script{
