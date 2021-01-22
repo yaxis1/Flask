@@ -1,7 +1,7 @@
 def install_requirements(){
     echo 'Installing requirements for flaskapp'
-    sh'apt-get install sudo'
-    sh'echo "$USER"'
+    sh'sudo apt-get upgrade'
+    sh'sudo apt-get upgrade'
     
 }
 return this
