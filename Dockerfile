@@ -1,16 +1,16 @@
 FROM ubuntu:latest
 
-RUN curl -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.5 \
     python3-pip \
+    wget\
     default-jdk\
-    jenkins\
     git\
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN curl -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key
 
 WORKDIR /theapp
 
