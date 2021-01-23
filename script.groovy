@@ -1,8 +1,7 @@
 def install_requirements(){
-   cmd 'run.py'
+   bat 'run.py'
 }
 def install_requirements1(){
-   cmd 'test.py'
-    
+   bat 'test.py'
 }
 return this
