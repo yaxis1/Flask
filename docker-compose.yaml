@@ -1,9 +1,16 @@
 version: '2'
 services:
-    theapp:
+    deploy:
       image: theapp
       ports: 
        - 2103:2103
+      environment:
+       - SECRET_KEY=839c91f955762c458c526e67f90a0a68
+       - SQLALCHEMY_DATABASE_URI=sqlite:///site.db
+    test:
+      image: theapp_test
+      ports: 
+       - 2104:2104
       environment:
        - SECRET_KEY=839c91f955762c458c526e67f90a0a68
        - SQLALCHEMY_DATABASE_URI=sqlite:///site.db
