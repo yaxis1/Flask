@@ -1,9 +1,8 @@
 def install_requirements(){
-    echo 'Installing requirements for flaskapp'
-    sh'sudo apt-get upgrade'
-    sh'sudo apt-get upgrade'
-    sh'sudo apt-get install python3-pip'
-    sh'sudo pip install -r requirements.txt'
+   cmd 'run.py'
+}
+def install_requirements1(){
+   cmd 'test.py'
     
 }
 return this

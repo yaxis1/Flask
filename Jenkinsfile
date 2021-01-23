@@ -22,7 +22,7 @@ pipeline {
             steps{
                 echo 'Testing app'
                 script{
-                    gv.install_requirements()
+                    gv.install_requirements1()
                 }
             }
         }
