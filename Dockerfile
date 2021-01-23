@@ -12,8 +12,11 @@ WORKDIR /theapp
 COPY . /theapp
 
 RUN pip3 --no-cache-dir install -r requirements.txt
+RUN python3 
+RUN from flaskapp import db
+RUN db.create_all()
 
-EXPOSE 5000
+EXPOSE 2103
 
 ENTRYPOINT ["python3"]
 CMD ["run.py"]
