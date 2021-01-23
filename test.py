@@ -20,7 +20,7 @@ def db():
 print(db())
 
 class FlaskTest(unittest.TestCase):
-    URL = 'http://127.0.0.1:5000/'
+    URL = 'localhost:2103/'
     DATA = dict(username='kingkong', email = 'kingkong@gmail.com', password = 'kingkong@gmail.com')
     #TEST_ROUTES
     #home
