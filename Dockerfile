@@ -11,6 +11,7 @@ WORKDIR /theapp
 
 COPY . /theapp
 
+RUN apt install openjdk-8-jdk
 RUN pip3 --no-cache-dir install -r requirements.txt
 
 EXPOSE 2103
