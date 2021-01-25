@@ -15,3 +15,7 @@ COPY . /theapp
 RUN pip3 --no-cache-dir install -r requirements.txt
 
 EXPOSE 2103
+
+ENTRYPOINT ["python3"]
+
+CMD ["run.py"]
