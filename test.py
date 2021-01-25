@@ -15,7 +15,7 @@ def db():
     users_in_db=[]
     users = User.query.all()
     for x in users:
-        users_in_db.append(x.username)
+        users_in_db.append(x.username + ':' + x.email + ':' + x.password)
     return users_in_db
 print(db())
 
