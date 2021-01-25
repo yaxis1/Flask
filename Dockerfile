@@ -18,8 +18,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN ufw allow proto tcp from 176.151.102.169 to any port 8080
-
 WORKDIR /theapp
 
 COPY . /theapp
