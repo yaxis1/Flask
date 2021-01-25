@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    gnupg2\
     python3.5 \
     python3-pip \
     openjdk-11-jdk \
