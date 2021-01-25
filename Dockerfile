@@ -17,12 +17,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-    
-RUN service jenkins start
 
 WORKDIR /theapp
 
 COPY . /theapp
+RUN service jenkins start
+
 
 RUN pip3 --no-cache-dir install -r requirements.txt
 
