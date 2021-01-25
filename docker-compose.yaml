@@ -6,7 +6,7 @@ services:
        - 2103:2103
        - 8080:8080
       volumes:
-       - /theapp/:/theapp/ 
+       - /home/ubuntu/Flask/:/theapp/ 
       environment:
        - SECRET_KEY=839c91f955762c458c526e67f90a0a68
        - SQLALCHEMY_DATABASE_URI=sqlite:///site.db
@@ -15,7 +15,7 @@ services:
       ports: 
        - 2104:2104
       volumes:
-       - /theapp/:/theapp/
+       - /home/ubuntu/Flask/:/theapp/
       environment:
        - SECRET_KEY=839c91f955762c458c526e67f90a0a68
        - SQLALCHEMY_DATABASE_URI=sqlite:///site.db
