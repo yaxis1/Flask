@@ -24,7 +24,7 @@ COPY . /theapp
 
 RUN pip3 --no-cache-dir install -r requirements.txt
 
-EXPOSE 2103
+EXPOSE 2103 
 EXPOSE 8080
 
 ENTRYPOINT ["python3"]
