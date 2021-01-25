@@ -6,11 +6,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     openjdk-11-jdk \
     wget \
+    wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add -\
+    sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'\
+    jenkins\
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add -
 
 WORKDIR /theapp
 
