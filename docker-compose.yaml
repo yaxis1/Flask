@@ -7,10 +7,3 @@ services:
       environment:
        - SECRET_KEY=839c91f955762c458c526e67f90a0a68
        - SQLALCHEMY_DATABASE_URI=sqlite:///site.db
-    test:
-      image: theapp
-      ports: 
-       - 2104:2104
-      environment:
-       - SECRET_KEY=839c91f955762c458c526e67f90a0a68
-       - SQLALCHEMY_DATABASE_URI=sqlite:///site.db
