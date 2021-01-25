@@ -3,7 +3,7 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.5 \
     python3-pip \
-    apt install openjdk-11-jdk \
+    openjdk-11-jdk \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
