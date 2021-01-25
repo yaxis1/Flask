@@ -12,7 +12,6 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password',[DataRequired(), Length(min = 6), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
-
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
@@ -22,7 +21,6 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('That email is already taken!')
-
 
 class LoginForm(FlaskForm):
     email = StringField('Email',[DataRequired(), Email() ])
