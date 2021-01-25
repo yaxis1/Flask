@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2\
     python3.5 \
     python3-pip \
