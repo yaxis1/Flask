@@ -1,3 +1,5 @@
+# We need a EC2 instance to launch a docker that in turn launches a ubuntu with jenkins.
+
 # Cloud infrastructure for the flask app
 terraform {
   required_providers {
@@ -132,6 +134,14 @@ resource "aws_security_group" "web_traffic" {
     protocol = "tcp"
   }
 
+  ingress {
+    cidr_blocks = [ "0.0.0.0/0" ]
+    description = "TCP"
+    from_port = 8080 # This port will be opened for internet as ec2's 8080 will be joined with docker's 2103(flask)
+    to_port = 8080 # ec2ip:8080
+    protocol = "tcp"
+  }
+
   egress {
     from_port = 0
     to_port = 0
@@ -159,10 +169,11 @@ resource "aws_eip" "one" {
   vpc = true
   network_interface = aws_network_interface.SERVER_NIC.id
   associate_with_private_ip = "10.0.1.49"
-  depends_on = aws_internet_gateway.GODZILLA_IGW
+  depends_on = [aws_internet_gateway.GODZILLA_IGW]
 }
 
 # EC 2
+# Using userscripts to pull source code from github, install and configure docker.
 resource "aws_instance" "myec2_from_terraform" {
   ami           = "ami-0d6aecf0f0425f42a"
   instance_type = "t2.micro"
@@ -174,9 +185,24 @@ resource "aws_instance" "myec2_from_terraform" {
     
   }
 
+  user_data = <<-EOF
+          #! /bin/bash
+          sudo apt-get update && sudo apt-get upgrade -y --no-install-recommends
+          sudo apt-get -y install docker.io
+          sudo apt-get -y install docker-compose
 
+          sudo systemctl start apache2
+          sudo systemctl start docker
+
+          mkdir sourcecode
+          cd sourcecode
+          git clone https://github.com/yaxis1/Flask-jenkins-terraform-docker.git
+          cd Flask-jenkins-terraform-docker
+          sudo docker build -t theapp .
+          sudo docker run -p 8080:2103 theapp 
+          EOF
   tags = {
-    Name = "EC2 from terraform"
+    Name = "server_terraform"
   }
 }  
 
@@ -189,3 +215,9 @@ resource "aws_instance" "myec2_from_terraform" {
   route_table_id = aws_route_table.public_route.id
   
 } */
+
+#          sudo docker run theapp
+         # sudo docker create theapp
+         #          sudo apt-get -y install apache2 
+
+         #          echo "<h2> text from TERRA_FORM <h2>" > /var/www/html/index.html
