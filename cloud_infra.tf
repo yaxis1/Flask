@@ -137,8 +137,8 @@ resource "aws_security_group" "web_traffic" {
   ingress {
     cidr_blocks = [ "0.0.0.0/0" ]
     description = "TCP"
-    from_port = 8080 # This port will be opened for internet as ec2's 8080 will be joined with docker's 2103(flask)
-    to_port = 8080 # ec2ip:8080
+    from_port = var.port # This port will be opened for internet as ec2's var.port will be joined with docker's 2103(flask)
+    to_port = var.port # ec2ip:var.port
     protocol = "tcp"
   }
 
@@ -199,12 +199,22 @@ resource "aws_instance" "myec2_from_terraform" {
           git clone https://github.com/yaxis1/Flask-jenkins-terraform-docker.git
           cd Flask-jenkins-terraform-docker
           sudo docker build -t theapp .
-          sudo docker run -p 8080:2103 theapp 
+          sudo docker run -p ${var.port}:2103 theapp 
           EOF
   tags = {
     Name = "server_terraform"
   }
-}  
+}
+
+variable "port" { #App runs on this port
+  description = "Enter port for application:"
+  type = string
+  
+}
+
+output "ec2ipaddr_and_appport" {
+  value = [aws_eip.one.public_ip,var.port]  # ec2's var.port is further attached to docker's 2103(flaskapp)
+}
 
 
 
